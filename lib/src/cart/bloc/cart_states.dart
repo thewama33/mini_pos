@@ -59,20 +59,3 @@ class CartLoaded extends CartState {
   @override
   List<Object?> get props => [lines, totals];
 }
-
-class CartSnapshot extends Equatable {
-  const CartSnapshot({
-    required this.lines,
-    required this.totals,
-    required this.actionType,
-    required this.timestamp,
-  });
-
-  final List<CartLine> lines;
-  final CartTotals totals;
-  final String actionType;
-  final DateTime timestamp;
-
-  @override
-  List<Object?> get props => [lines, totals, actionType, timestamp];
-}
