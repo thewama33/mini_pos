@@ -29,7 +29,6 @@ class AppTheme {
         seedColor: primaryColor,
         brightness: Brightness.light,
         surface: surfaceColor,
-        background: backgroundColor,
       ),
       textTheme: GoogleFonts.interTextTheme().copyWith(
         displayLarge: GoogleFonts.inter(
@@ -95,7 +94,7 @@ class AppTheme {
       ),
       cardTheme: CardTheme(
         elevation: 2,
-        shadowColor: Colors.black.withOpacity(0.1),
+        shadowColor: Colors.black.withAlpha((0.1 * 255).toInt()),
         shape: RoundedRectangleBorder(borderRadius: cardRadius),
         color: cardColor,
       ),
