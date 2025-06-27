@@ -1,0 +1,30 @@
+name: mini_pos
+description: "A Flutter implementation of a headless checkout engine with BLoC architecture, featuring a complete demo UI."
+publish_to: "Daftra"
+version: 0.1.0
+
+environment:
+  sdk: ^3.6.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+  bloc: ^9.0.0
+  equatable: ^2.0.7
+  flutter_bloc: ^9.1.1
+  hydrated_bloc: ^10.0.0
+  google_fonts: ^6.2.1
+  path_provider: ^2.1.4
+  replay_bloc: ^0.3.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  bloc_test: ^10.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/catalog.json
