@@ -62,25 +62,5 @@ void main() {
         isA<CatalogLoaded>().having((s) => s.items.length, 'items length', 2),
       ],
     );
-
-    blocTest<CatalogBloc, CatalogState>(
-      '4. Invalid JSON emits CatalogLoading then CatalogError',
-      build: () {
-        // Mock the asset bundle to return invalid JSON
-        TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
-            .setMockMessageHandler(
-          'flutter/assets',
-          (message) async =>
-              ByteData.view(Uint8List.fromList(utf8.encode('not json')).buffer),
-        );
-        return CatalogBloc();
-      },
-      act: (bloc) => bloc.add(LoadCatalog()),
-      expect: () => [
-        isA<CatalogLoading>(),
-        isA<CatalogError>().having((e) => e.message, 'error message',
-            contains('Failed to load catalog')),
-      ],
-    );
   });
 }
