@@ -20,7 +20,8 @@ class ReceiptHeader extends Equatable {
   List<Object?> get props => [timestamp, storeInfo];
 
   @override
-  String toString() => 'ReceiptHeader(timestamp: $timestamp, store: $storeInfo)';
+  String toString() =>
+      'ReceiptHeader(timestamp: $timestamp, store: $storeInfo)';
 }
 
 /// Represents a line item on the receipt
@@ -66,10 +67,12 @@ class ReceiptLine extends Equatable {
   }
 
   @override
-  List<Object?> get props => [itemId, itemName, unitPrice, quantity, discount, lineNet];
+  List<Object?> get props =>
+      [itemId, itemName, unitPrice, quantity, discount, lineNet];
 
   @override
-  String toString() => 'ReceiptLine($itemName x$quantity = L.E ${lineNet.toStringAsFixed(2)})';
+  String toString() =>
+      'ReceiptLine($itemName x$quantity = L.E ${lineNet.toStringAsFixed(2)})';
 }
 
 /// Represents the receipt totals section
@@ -106,7 +109,8 @@ class ReceiptTotals extends Equatable {
   List<Object?> get props => [subtotal, vat, grandTotal, discount];
 
   @override
-  String toString() => 'ReceiptTotals(grandTotal: L.E ${grandTotal.toStringAsFixed(2)})';
+  String toString() =>
+      'ReceiptTotals(grandTotal: L.E ${grandTotal.toStringAsFixed(2)})';
 }
 
 /// Represents a complete receipt
@@ -131,19 +135,20 @@ class Receipt extends Equatable {
   List<Object?> get props => [header, lines, totals];
 
   @override
-  String toString() => 'Receipt(${lines.length} items, total: L.E ${totals.grandTotal.toStringAsFixed(2)})';
+  String toString() =>
+      'Receipt(${lines.length} items, total: L.E ${totals.grandTotal.toStringAsFixed(2)})';
 }
 
 /// Pure function to build a receipt from cart state and timestamp
 Receipt buildReceipt(CartLoaded cartState, DateTime timestamp) {
   final header = ReceiptHeader(timestamp: timestamp);
-  
+
   final lines = cartState.lines
       .map((cartLine) => ReceiptLine.fromCartLine(cartLine))
       .toList();
-  
+
   final totals = ReceiptTotals.fromCartTotals(cartState.totals);
-  
+
   return Receipt(
     header: header,
     lines: lines,

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:mini_pos/core/extentions/money_extenstions.dart';
 import 'package:mini_pos/src/cart/cart_model.dart';
@@ -37,15 +36,15 @@ class CartTotalsWidget extends StatelessWidget {
                 Text(
                   'Total:',
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+                        fontWeight: FontWeight.bold,
+                      ),
                 ),
                 Text(
                   'L.E ${totals.grandTotal.asMoney}',
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
                 ),
               ],
             ),

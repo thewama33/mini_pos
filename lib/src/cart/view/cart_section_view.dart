@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mini_pos/src/cart/bloc/cart_bloc.dart';
 import 'package:mini_pos/src/cart/bloc/cart_events.dart';
 import 'package:mini_pos/src/cart/bloc/cart_states.dart';
-import 'package:mini_pos/src/cart/cart_model.dart';
 import 'package:mini_pos/src/cart/receipt.dart';
 import 'package:mini_pos/src/cart/view/components/cart_line_items.dart';
 import 'package:mini_pos/src/cart/view/widgets/cart_total_widget.dart';

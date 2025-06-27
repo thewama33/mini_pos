@@ -16,7 +16,7 @@ class CatalogBloc extends Bloc<CatalogEvent, CatalogState> {
   }
 
   /// Path to the catalog JSON file
-   String catalogPath;
+  String catalogPath;
 
   Future<void> _onLoadCatalog(
       LoadCatalog event, Emitter<CatalogState> emit) async {

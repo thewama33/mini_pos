@@ -1,4 +1,3 @@
-
 // States
 import 'package:equatable/equatable.dart';
 import 'package:mini_pos/src/catalog/model/item_model.dart';

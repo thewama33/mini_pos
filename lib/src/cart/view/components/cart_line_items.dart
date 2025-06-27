@@ -26,7 +26,8 @@ class _CartLineItemState extends State<CartLineItem> {
           padding: const EdgeInsets.all(8.0),
           child: Row(
             children: [
-              Text(widget.line.item.emoji, style: const TextStyle(fontSize: 20)),
+              Text(widget.line.item.emoji,
+                  style: const TextStyle(fontSize: 20)),
               const SizedBox(width: 8),
               Expanded(
                 child: Column(
@@ -63,7 +64,8 @@ class _CartLineItemState extends State<CartLineItem> {
                         onPressed: () {
                           if (widget.line.quantity > 1) {
                             context.read<CartBloc>().add(
-                                  ChangeQty(widget.line.item.id, widget.line.quantity - 1),
+                                  ChangeQty(widget.line.item.id,
+                                      widget.line.quantity - 1),
                                 );
                           } else {
                             context.read<CartBloc>().add(
@@ -79,7 +81,8 @@ class _CartLineItemState extends State<CartLineItem> {
                       IconButton(
                         onPressed: () {
                           context.read<CartBloc>().add(
-                                ChangeQty(widget.line.item.id, widget.line.quantity + 1),
+                                ChangeQty(widget.line.item.id,
+                                    widget.line.quantity + 1),
                               );
                         },
                         icon: const Icon(Icons.add_circle_outline),
@@ -130,77 +133,77 @@ class _CartLineItemState extends State<CartLineItem> {
   }
 
   void _showDiscountDialog(BuildContext context, CartBloc bloc, CartLine line) {
-  final discountController = TextEditingController(
-    text: (line.discount * 100).toStringAsFixed(0),
-  );
-  final formKey = GlobalKey<FormState>();
+    final discountController = TextEditingController(
+      text: (line.discount * 100).toStringAsFixed(0),
+    );
+    final formKey = GlobalKey<FormState>();
 
-  showDialog(
-    context: context,
-    builder: (dialogContext) => AlertDialog(
-      title: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Text('Set Discount for ${line.item.name}'),
-      ),
-      content: Form(
-        key: formKey,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextFormField(
-              controller: discountController,
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
-                labelText: 'Discount Percentage',
-                suffixText: '%',
-              ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter a discount percentage';
-                }
-                final discountValue = double.tryParse(value);
-                if (discountValue == null ||
-                    discountValue <= 0 ||
-                    discountValue > 100) {
-                  return 'Please enter a valid discount percentage (0-100)';
-                }
-                return null;
-              },
-            ),
-            const SizedBox(height: 10),
-            Text(
-              'Original: L.E ${(line.item.price * line.quantity).asMoney}\n'
-              'Discounted: L.E ${line.lineNet.asMoney}',
-              style: const TextStyle(fontSize: 14),
-            ),
-          ],
+    showDialog(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text('Set Discount for ${line.item.name}'),
         ),
-      ),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.pop(context),
-          child: const Text('Cancel'),
-        ),
-        FilledButton(
-          onPressed: () {
-            if (formKey.currentState!.validate()) {
-              final discountValue =
-                  double.tryParse(discountController.text) ?? 0;
-
-              bloc.add(
-                ChangeDiscount(
-                  line.item.id,
-                  discountValue.clamp(0, 100) / 100,
+        content: Form(
+          key: formKey,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextFormField(
+                controller: discountController,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                keyboardType: TextInputType.number,
+                decoration: const InputDecoration(
+                  labelText: 'Discount Percentage',
+                  suffixText: '%',
                 ),
-              );
-              Navigator.pop(context);
-            }
-          },
-          child: const Text('Apply'),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter a discount percentage';
+                  }
+                  final discountValue = double.tryParse(value);
+                  if (discountValue == null ||
+                      discountValue <= 0 ||
+                      discountValue > 100) {
+                    return 'Please enter a valid discount percentage (0-100)';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 10),
+              Text(
+                'Original: L.E ${(line.item.price * line.quantity).asMoney}\n'
+                'Discounted: L.E ${line.lineNet.asMoney}',
+                style: const TextStyle(fontSize: 14),
+              ),
+            ],
+          ),
         ),
-      ],
-    ),
-  );
-}
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
+          ),
+          FilledButton(
+            onPressed: () {
+              if (formKey.currentState!.validate()) {
+                final discountValue =
+                    double.tryParse(discountController.text) ?? 0;
+
+                bloc.add(
+                  ChangeDiscount(
+                    line.item.id,
+                    discountValue.clamp(0, 100) / 100,
+                  ),
+                );
+                Navigator.pop(context);
+              }
+            },
+            child: const Text('Apply'),
+          ),
+        ],
+      ),
+    );
+  }
 }
