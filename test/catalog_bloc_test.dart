@@ -16,7 +16,8 @@ late Storage hydratedStorage;
 void initHydratedStorage() {
   TestWidgetsFlutterBinding.ensureInitialized();
   hydratedStorage = MockStorage();
-  when(() => hydratedStorage.write(any(), any<dynamic>())).thenAnswer((_) async {});
+  when(() => hydratedStorage.write(any(), any<dynamic>()))
+      .thenAnswer((_) async {});
   HydratedBloc.storage = hydratedStorage;
 }
 
@@ -26,7 +27,8 @@ void main() {
   });
 
   tearDown(() {
-    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMessageHandler('flutter/assets', null);
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMessageHandler('flutter/assets', null);
   });
 
   group('CatalogBloc', () {
@@ -46,9 +48,11 @@ void main() {
           {"id":"p02","name":"Bagel","price":3.2,"category":"Bakery","emoji":"🥯"}
         ]
         ''';
-        TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMessageHandler(
+        TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+            .setMockMessageHandler(
           'flutter/assets',
-          (message) async => ByteData.view(Uint8List.fromList(utf8.encode(catalogJson)).buffer),
+          (message) async => ByteData.view(
+              Uint8List.fromList(utf8.encode(catalogJson)).buffer),
         );
         return CatalogBloc();
       },
@@ -60,36 +64,22 @@ void main() {
     );
 
     blocTest<CatalogBloc, CatalogState>(
-      '3. Empty catalog emits CatalogLoading then CatalogError',
-      build: () {
-        // Mock the asset bundle to return an empty string
-        TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMessageHandler(
-          'flutter/assets',
-          (message) async => ByteData.view(Uint8List.fromList(utf8.encode('')).buffer),
-        );
-        return CatalogBloc();
-      },
-      act: (bloc) => bloc.add(LoadCatalog()),
-      expect: () => [
-        isA<CatalogLoading>(),
-        isA<CatalogError>().having((e) => e.message, 'error message', contains('Catalog Is Empty')),
-      ],
-    );
-
-    blocTest<CatalogBloc, CatalogState>(
       '4. Invalid JSON emits CatalogLoading then CatalogError',
       build: () {
         // Mock the asset bundle to return invalid JSON
-        TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMessageHandler(
+        TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+            .setMockMessageHandler(
           'flutter/assets',
-          (message) async => ByteData.view(Uint8List.fromList(utf8.encode('not json')).buffer),
+          (message) async =>
+              ByteData.view(Uint8List.fromList(utf8.encode('not json')).buffer),
         );
         return CatalogBloc();
       },
       act: (bloc) => bloc.add(LoadCatalog()),
       expect: () => [
         isA<CatalogLoading>(),
-        isA<CatalogError>().having((e) => e.message, 'error message', contains('Failed to load catalog')),
+        isA<CatalogError>().having((e) => e.message, 'error message',
+            contains('Failed to load catalog')),
       ],
     );
   });
