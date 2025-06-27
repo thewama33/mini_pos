@@ -165,7 +165,7 @@ Pure function `buildReceipt(CartState, DateTime)` that creates immutable receipt
 
 ## Time Spent
 
-Total: **~6 hours**
+Total: **~4 hours**
 
 ---
 ### Completed Items
